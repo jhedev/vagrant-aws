@@ -222,12 +222,17 @@ module VagrantPlugins
           # prepare request args
           options = {
             'InstanceCount'                                  => 1,
+            'ValidUntil'                                     => config.spot_valid_until,
             'LaunchSpecification.KeyName'                    => config.keypair_name,
             'LaunchSpecification.Placement.AvailabilityZone' => config.availability_zone,
             'LaunchSpecification.UserData'                   => config.user_data,
             'LaunchSpecification.SubnetId'                   => config.subnet_id,
-            'LaunchSpecification.BlockDeviceMapping'		     => config.block_device_mapping,
-            'ValidUntil'                                     => config.spot_valid_until
+            'LaunchSpecification.BlockDeviceMapping'         => config.block_device_mapping,
+            'LaunchSpecification.PrivateIpAddress'           => config.private_ip_address,
+            'LaunchSpecification.IamInstanceProfile.Arn'     => config.iam_instance_profile_arn,
+            'LaunchSpecification.IamInstanceProfile.Name'    => config.iam_instance_profile_name,
+            'LaunchSpecification.Monitoring.Enabled'         => config.monitoring,
+            'LaunchSpecification.EbsOptimized'               => config.ebs_optimized
           }
           security_group_key = config.subnet_id.nil? ? 'LaunchSpecification.SecurityGroup' : 'LaunchSpecification.SecurityGroupId'
           options[security_group_key] = config.security_groups
